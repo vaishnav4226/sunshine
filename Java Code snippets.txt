@@ -1,0 +1,44 @@
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+
+//create an arraylist of string either using this format or the other one
+        ArrayList<String> weekForecast = new ArrayList<String>();
+        weekForecast.add("Today - Sunny - 88/63");
+        weekForecast.add("Tomorrow - Foggy - 70/46");
+        weekForecast.add("Weds - Cloudy - 72/63");
+        weekForecast.add("Thurs - Rainy - 64/51");
+        weekForecast.add("Fri - Foggy - 70/46");
+        weekForecast.add("Sat - Sunny - 76/68");
+        weekForecast.add("Sun - Moody - 79/68");
+
+//        String[] forecastArray = {
+//                "Today - Sunny - 88/63",
+//                "Tomorrow - Foggy - 70/46",
+//                "Weds - Cloudy - 72/63",
+//                "Thurs - Rainy - 64/51",
+//                "Fri - Foggy - 70/46",
+//                "Sat - Sunny - 76/68"
+//        };
+//
+//        List<String> weekForecast = new ArrayList<String>(
+//                Arrays.asList(forecastArray)
+//        );
+
+//pass the data we have using an array adapter with the following syntax and parameters
+        ArrayAdapter<String> mForecastAdapter = new ArrayAdapter<String>(
+
+                getActivity(), // current context is this fragment's parent activity
+                R.layout.list_item_forcast, //ID of list item layout - name of the .xml file
+                R.id.list_item_forcast_textview, //ID of textview
+                weekForecast //the data we have
+        );
+
+//inflate the view we have by getting the name of the layout fragment
+        View rootView = inflater.inflate(R.layout.fragment_main, container, false);
+
+// Get a reference to the ListView, and attach this adapter to it.
+        ListView listView = (ListView) rootView.findViewById(R.id.listview_forecast);
+        listView.setAdapter(mForecastAdapter);
+
+        return rootView;
+    }

@@ -1,0 +1,104 @@
+Absolute Layout is evil = depricated because of multiple types of devices with multiple screen sizes
+
+Adaptive view comes into play. 
+Common layouts:
+Frame, Linear, Relative 
+
+Frame: Useful for simple Layouts with only one child view of ListView
+With a single view or stack of views, views are all aligned against the frame boundaries only
+
+Linear: Is perfect for stacking views vertically or horizontally one after another
+it is also the only way to break up the display proportionatly
+
+Relative:
+Sophisticated layout that allows views relative to others
+
+ScrollView: allows the view to scroll
+but there is a challenge with low memory devices - use as small number of views as possible.
+
+Solution is recycling view and reusing the views
+
+Given some sample data how do we populate the list view?
+We need to initialize the adapter
+We pass the data into the adapter
+it know how to create the layouts for the data
+but we don't need to create for all of them
+when we bind the items to ListView
+it starts at position 0
+
+List view asks for layout from the adapter as adapter knows how to make the  layout
+
+Data is populated at the adapter
+Create ArrayAdapter<String> in
+MainActivityFragment.java onCreateView()
+
+Parameters:
+Context - contains global info about th app enviroment. It allows to acces system services and resources, as well as the application specific resources that we defined. we use the fragments containing activity as the context.
+
+we call getActivity()
+
+ID of list item layout - R.layout.list_item_forecast - is the name of the .xml file
+
+ID of textview - R.id.list_item_forecast_textView - is the individual view name
+
+list of data - weekForecast
+
+Now we are actually gonna get the real time data from an API
+
+we need to make a quiery similar to:
+http://api.openweathermap.org/data/2.5/forecast/daily?q={Hoboken},{07307}&mode=json&units=metric&cnt={7}
+
+HTTP request for weather data:
+1. make the http request
+2.read the response from the input stream
+3. clean up and log any errors
+
+To request http on android:
+HttpUrlConnection 
+
+Logging levels:
+Determining the log levels
+
+Error: Log.e(String tag, String msg); 
+Warn:
+Info:
+Debug: are compiled in but are stripped out at run time
+Verbose: should never be compiled into the log except when in development
+
+Protip:
+Avoid Log spam
+
+All android apps run on the main thread aka UI thread
+Avoid long operations 
+
+For long running work: background thread
+Used for network calls, decoding bit maps or reading n writing from the db
+
+What class does android use to simplify the background thread creation and ui thread syncronization? 
+AsyncTask 
+ u don't need to figure out how it works if u are using this class
+
+calling a class = create an object dummy
+
+An each app runs on its own avm, as a result each app is completely sandboxed
+No app can access sensitive data
+Hence we need to use permissions
+Just like the app permissions
+
+best practice = ask for minimum permissions
+This is used in AndroidManifest.xml
+<!--Necessary for our app to access the internet-->
+    <uses-permission android:name="android.permission.INTERNET" />
+
+Refresh button is only for debugging
+In real life a good app should work like a butler
+
+So, AsyncTask should not be used as rotation of screen may crash the app
+We should use services instead
+Sync Adapter, Google cloud messaging, Inexact Alarm
+
+For now we will be using Services
+
+Protip:
+whenever u r doubtful go look up the android source code
+
